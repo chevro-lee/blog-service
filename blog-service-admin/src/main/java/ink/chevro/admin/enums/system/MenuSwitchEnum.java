@@ -1,5 +1,7 @@
 package ink.chevro.admin.enums.system;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Author: Chevro.Lee <br>
  * Description: 菜单显示开关枚举
@@ -28,12 +30,15 @@ public enum MenuSwitchEnum {
     }
 
     public static Boolean getValue(String key) {
+        if (!StringUtils.isNotEmpty(key)) {
+            return null;
+        }
         for (MenuSwitchEnum menuSwitchEnum : MenuSwitchEnum.values()) {
             if (!key.equals(menuSwitchEnum.key.toString())) {
                 continue;
             }
             return menuSwitchEnum.value;
         }
-        return false;
+        return null;
     }
 }
