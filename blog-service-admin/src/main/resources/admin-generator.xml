@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- 引入config配置文件   -->
+    <properties resource="config.properties"/>
+    <!-- targetRuntime创建一个myBatis容器 有MyBatis3Simple（简单版的CURD）和MyBatis3带有动态sql   -->
+    <context id="mysql" targetRuntime="MyBatis3">
+        <!-- 生成的Java文件的编码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <!-- 格式化java代码 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <!-- 格式化XML代码 -->
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+        <!-- 注释产生配置 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+        <!-- 指定如何连接目标数据库 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="${mysql.blog.redis.connection}"
+                        userId="${mysql.blog.redis.username}"
+                        password="${mysql.blog.redis.password}">
+        </jdbcConnection>
+        <!-- 类型解析器 是否强制转换forceBigDecimals，默认会先尝试使用Integer，Long，Short等来对应DECIMAL和 NUMERIC数据类型；  -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!-- 定义java模型属性  形成javabean   targetPackage目标包-->
+        <javaModelGenerator targetPackage="${bean.target.package}" targetProject="src\main\java">
+            <property name="constructorBased" value="false"/>
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- 定义sql映射  -->
+        <sqlMapGenerator targetPackage="${xml.target.package}" targetProject="src\main\resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!-- 指定Mapper的接口所在的位置 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="${mapper.target.package}" targetProject="src\main\java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        <!-- 指定逆向分析那些表,根据表创建javabean(Departmanet) -->
+        <table tableName="${generate.table}" domainObjectName="${generate.bean}">
+            <columnOverride column="{column.override.column}">
+                <property name="{column.override.type}" value="${column.override.value}"/>
+            </columnOverride>
+        </table>
+    </context>
+</generatorConfiguration>
