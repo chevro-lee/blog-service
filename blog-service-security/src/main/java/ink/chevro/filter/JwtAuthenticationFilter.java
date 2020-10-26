@@ -5,13 +5,10 @@ import ink.chevro.entity.LoginUser;
 import ink.chevro.jwt.JwtTokenUtils;
 import ink.chevro.redis.impl.RedisStringClient;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import result.CallResult;
 import result.RestResult;
 import result.RestRspBuilder;
@@ -85,14 +82,25 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException {
         RestResult<Void> restResult = new RestRspBuilder<Void>().success(CallResult.CALL_FAILED.value())
-                .code(RspCode.LOGIN_FAILED.code())
-                .msg(RspCode.LOGIN_FAILED.msg())
                 .data(null)
                 .exception(failed.getMessage())
                 .timestamp(DateUtils.dateToStamp(new Date()))
                 .build();
+        if (failed instanceof InternalAuthenticationServiceException) {
+            restResult.setCode(RspCode.USER_NOT_FOUND.code());
+            restResult.setMsg(RspCode.USER_NOT_FOUND.msg());
+        } else if (failed instanceof BadCredentialsException) {
+            restResult.setCode(RspCode.USER_BAD_CREDENTIAL.code());
+            restResult.setMsg(RspCode.USER_BAD_CREDENTIAL.msg());
+        } else if (failed instanceof LockedException) {
+            restResult.setCode(RspCode.USER_LOCK.code());
+            restResult.setMsg(RspCode.USER_LOCK.msg());
+        } else {
+            restResult.setCode(RspCode.LOGIN_FAILED.code());
+            restResult.setMsg(RspCode.LOGIN_FAILED.msg());
+        }
         String restResultJson = new ObjectMapper().writeValueAsString(restResult);
         response.setContentType("application/json");
         response.getOutputStream().write(restResultJson.getBytes());

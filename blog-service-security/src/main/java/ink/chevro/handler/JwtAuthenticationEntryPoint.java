@@ -1,13 +1,14 @@
 package ink.chevro.handler;
 
-import ink.chevro.jwt.JwtTokenUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import result.*;
+import result.CallResult;
+import result.RestResult;
+import result.RestRspBuilder;
+import result.RspCode;
 import utils.DateUtils;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -21,7 +22,7 @@ import java.util.Date;
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
         RestResult<String> restResult = new RestRspBuilder<String>().success(CallResult.CALL_SUCCESS.value())
                 .code(RspCode.FORBIDDEN.code())
                 .msg(RspCode.FORBIDDEN.msg())

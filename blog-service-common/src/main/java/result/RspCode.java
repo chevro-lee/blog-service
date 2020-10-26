@@ -9,6 +9,9 @@ public enum RspCode {
 
     LOGIN_SUCCESS("201","登录成功"),
     LOGIN_FAILED("503", "登录失败"),
+    USER_NOT_FOUND("504", "用户名不存在"),
+    USER_BAD_CREDENTIAL("505","用户名密码不正确"),
+    USER_LOCK("506","用户被锁定"),
     SUCCESS("200","成功"),
     FORBIDDEN("403","禁止访问"),
     NOT_FOUND("404","未找到"),
