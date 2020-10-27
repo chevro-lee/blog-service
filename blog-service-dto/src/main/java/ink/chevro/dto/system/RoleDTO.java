@@ -18,11 +18,12 @@ import lombok.NoArgsConstructor;
 public class RoleDTO {
 
     @ApiModelProperty(value = "角色键",name = "roleKey")
-    private String roleKey;
+    private String key;
 
     @ApiModelProperty(value = "角色名", name = "roleName")
-    private String roleName;
+    private String name;
 
     @ApiModelProperty(value = "描述", name = "description")
     private String description;
+
 }

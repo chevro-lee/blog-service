@@ -24,8 +24,8 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
         RestResult<String> restResult = new RestRspBuilder<String>().success(CallResult.CALL_SUCCESS.value())
-                .code(RspCode.FORBIDDEN.code())
-                .msg(RspCode.FORBIDDEN.msg())
+                .code(RspCode.TOKEN_INVALID.code())
+                .msg(RspCode.TOKEN_INVALID.msg())
                 .data(null)
                 .exception(authException.getMessage())
                 .timestamp(DateUtils.dateToStamp(new Date()))

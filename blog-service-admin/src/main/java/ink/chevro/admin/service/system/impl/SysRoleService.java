@@ -1,4 +1,4 @@
-package ink.chevro.admin.service.role.impl;
+package ink.chevro.admin.service.system.impl;
 
 import base.BaseService;
 import ink.chevro.admin.entity.blogger.BloggerRole;
@@ -7,7 +7,7 @@ import ink.chevro.admin.entity.system.SysRole;
 import ink.chevro.admin.entity.system.SysRoleExample;
 import ink.chevro.admin.mybatis.mapper.blogger.BloggerRoleMapper;
 import ink.chevro.admin.mybatis.mapper.system.SysRoleMapper;
-import ink.chevro.admin.service.role.IRoleService;
+import ink.chevro.admin.service.system.ISysRoleService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,7 +22,7 @@ import java.util.Map;
  * Date: Create in  11:16 2020-07-21
  **/
 @Service
-public class RoleService extends BaseService implements IRoleService {
+public class SysRoleService extends BaseService implements ISysRoleService {
 
     @Resource
     private SysRoleMapper roleMapper;

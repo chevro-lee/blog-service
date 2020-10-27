@@ -15,6 +15,7 @@ public enum RspCode {
     SUCCESS("200","成功"),
     FORBIDDEN("403","禁止访问"),
     NOT_FOUND("404","未找到"),
+    TOKEN_INVALID("505","TOKEN无效或已过期"),
     SYSTEM_ERROR("500","服务器内部错误"),
     LOGIC_ERROR("501","服务执行异常"),
     RPC_ERROR("502","外部服务调用异常")

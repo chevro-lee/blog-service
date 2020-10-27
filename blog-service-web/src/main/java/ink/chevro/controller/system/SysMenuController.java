@@ -21,7 +21,7 @@ import java.util.List;
  * Description:
  * Date: Create in  18:32 2020-09-03
  **/
-@Api(value = "SysMenuController",tags = "菜单管理")
+@Api(value = "SysMenuController",tags = "菜单")
 @RestController
 @RequestMapping("/api/v1")
 public class SysMenuController {

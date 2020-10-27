@@ -3,7 +3,7 @@ package ink.chevro.service;
 import ink.chevro.admin.entity.blogger.Blogger;
 import ink.chevro.admin.entity.system.SysRole;
 import ink.chevro.admin.service.blogger.impl.BloggerService;
-import ink.chevro.admin.service.role.impl.RoleService;
+import ink.chevro.admin.service.system.impl.SysRoleService;
 import ink.chevro.entity.JwtUser;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,7 +26,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private BloggerService bloggerService;
 
     @Resource
-    private RoleService roleService;
+    private SysRoleService roleService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

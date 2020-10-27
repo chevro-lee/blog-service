@@ -1,4 +1,4 @@
-package ink.chevro.admin.service.role;
+package ink.chevro.admin.service.system;
 
 
 import ink.chevro.admin.entity.system.SysRole;
@@ -11,7 +11,7 @@ import java.util.Map;
  * Description:
  * Date: Create in  11:16 2020-07-21
  **/
-public interface IRoleService {
+public interface ISysRoleService {
 
     /**
      * 查询博主角色

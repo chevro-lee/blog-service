@@ -16,7 +16,6 @@ import result.RspCode;
 import utils.DateUtils;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -60,7 +59,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException {
         JwtUser jwtUser = (JwtUser) authResult.getPrincipal();
         boolean isRememberMe = rememberMe.get() == 1;
         String token = JwtTokenUtils.createAccessToken(jwtUser, isRememberMe);
