@@ -13,9 +13,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Author: Chevro.Lee <br>
@@ -69,7 +67,42 @@ public class SysMenuDAO implements ISysMenuDAO {
         return menuDTOList;
     }
 
-    private List<MenuDTO> constructMenu(List<MenuDTO> menuDTOList) {
+    @Override
+    public List<MenuDTO> getMenusAuth(String role) {
+        List<SysMenu> menuAuthList = sysMenuMapper.selectMenuByRole(role);
+        List<MenuDTO> menuDTOList = new ArrayList<>();
+        for (SysMenu sysMenu : menuAuthList) {
+            MenuDTO menuDTO = new MenuDTO();
+            menuDTO.setMenuCode(sysMenu.getMenuCode());
+            menuDTO.setAlwaysShow(MenuSwitchEnum.getValue(sysMenu.getAlwaysShow()));
+            menuDTO.setHidden(MenuSwitchEnum.getValue(sysMenu.getHidden()));
+            menuDTO.setComponent(sysMenu.getComponent());
+            menuDTO.setPath(sysMenu.getPath());
+            menuDTO.setName(sysMenu.getName());
+            menuDTO.setIcon(sysMenu.getIcon());
+            menuDTO.setLevel(sysMenu.getLevel());
+            menuDTO.setRedirect(sysMenu.getRedirect());
+            menuDTO.setSort(sysMenu.getSort());
+            menuDTO.setTitle(sysMenu.getTitle());
+            menuDTO.setParent(sysMenu.getParent());
+            menuDTOList.add(menuDTO);
+        }
+        // 构造菜单路由数据结构
+        menuDTOList = constructMenu(menuDTOList);
+        return menuDTOList;
+    }
+
+    @Override
+    public Map<String, List<MenuDTO>> mapMenusAuth(List<String> roleList) {
+        Map<String, List<MenuDTO>> map = new HashMap<>();
+        for (String role : roleList) {
+            List<MenuDTO> menusAuth = getMenusAuth(role);
+            map.put(role, menusAuth);
+        }
+        return map;
+    }
+
+    protected List<MenuDTO> constructMenu(List<MenuDTO> menuDTOList) {
         List<MenuDTO> constructMenuList = new ArrayList<>();
         for (MenuDTO menuDTO : menuDTOList) {
             String parent = menuDTO.getParent();
@@ -85,7 +118,7 @@ public class SysMenuDAO implements ISysMenuDAO {
     }
 
     // 递归查找当前菜单的子菜单
-    private List<MenuDTO> findChild(MenuDTO menuDTO, List<MenuDTO> menuDTOList) {
+    protected List<MenuDTO> findChild(MenuDTO menuDTO, List<MenuDTO> menuDTOList) {
         String menuCode = menuDTO.getMenuCode();
         List<MenuDTO> menuDTOs = new ArrayList<>();
         for (MenuDTO m : menuDTOList) {

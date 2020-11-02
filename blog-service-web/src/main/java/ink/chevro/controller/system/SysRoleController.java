@@ -5,9 +5,7 @@ import ink.chevro.admin.service.system.ISysRoleService;
 import ink.chevro.dto.system.RoleDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import result.RestResult;
 import result.RestRsp;
 
@@ -28,19 +26,19 @@ public class SysRoleController {
     @Resource
     private ISysRoleService roleService;
 
-    @ApiOperation("获取菜单信息")
+    @ApiOperation("获取角色信息")
     @GetMapping("/roles")
     public RestResult<List<RoleDTO>> getRoles() {
         RestRsp<List<RoleDTO>> restResult = new RestRsp<>();
-        List<SysRole> sysRoles = roleService.selectRoles();
-        List<RoleDTO> roleDTOS = new ArrayList<>();
-        for (SysRole sysRole : sysRoles) {
-            RoleDTO roleDTO = new RoleDTO();
-            roleDTO.setKey(sysRole.getRoleKey());
-            roleDTO.setName(sysRole.getRoleName());
-            roleDTO.setDescription(sysRole.getRoleComment());
-            roleDTOS.add(roleDTO);
-        }
-        return restResult.success(roleDTOS);
+        List<RoleDTO> roleDTOList = roleService.selectRoles();
+        return restResult.success(roleDTOList);
+    }
+
+    @ApiOperation("修改角色信息")
+    @PutMapping("/roles/{role}")
+    public RestResult<Void> updateRoles(@PathVariable("role") String role, @RequestBody RoleDTO roleDTO) {
+        RestRsp<Void> restResult = new RestRsp<>();
+
+        return restResult.success(null);
     }
 }

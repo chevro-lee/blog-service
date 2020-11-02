@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /**
  * Author: Chevro.Lee <br>
  * Description:
@@ -26,4 +28,6 @@ public class RoleDTO {
     @ApiModelProperty(value = "描述", name = "description")
     private String description;
 
+    @ApiModelProperty(value = "权限菜单", name = "routes")
+    private List<MenuDTO> routes;
 }

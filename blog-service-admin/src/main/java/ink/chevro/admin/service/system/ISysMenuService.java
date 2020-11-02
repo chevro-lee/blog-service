@@ -11,5 +11,5 @@ import java.util.List;
  **/
 public interface ISysMenuService {
 
-    List<MenuDTO> getMenuAuth(String role);
+    List<MenuDTO> getMenus(String role);
 }

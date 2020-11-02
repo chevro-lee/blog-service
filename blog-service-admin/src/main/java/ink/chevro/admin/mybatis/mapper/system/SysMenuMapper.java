@@ -27,4 +27,8 @@ public interface SysMenuMapper {
     int updateByPrimaryKeySelective(SysMenu record);
 
     int updateByPrimaryKey(SysMenu record);
+
+    List<SysMenu> selectMenuByRole(String role);
+
+    List<SysMenu> selectMenuByPaths(List<String> pathList);
 }

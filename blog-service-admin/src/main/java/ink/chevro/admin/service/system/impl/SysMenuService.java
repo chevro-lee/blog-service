@@ -20,7 +20,7 @@ public class SysMenuService implements ISysMenuService {
     private SysMenuDAO sysMenuDAO;
 
     @Override
-    public List<MenuDTO> getMenuAuth(String role) {
+    public List<MenuDTO> getMenus(String role) {
         return sysMenuDAO.getMenusAll(role);
     }
 }

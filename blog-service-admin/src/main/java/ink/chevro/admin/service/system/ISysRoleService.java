@@ -2,6 +2,7 @@ package ink.chevro.admin.service.system;
 
 
 import ink.chevro.admin.entity.system.SysRole;
+import ink.chevro.dto.system.RoleDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -29,9 +30,19 @@ public interface ISysRoleService {
     Map<String, String> selectRole();
 
     /**
-     * 查询所有的角色
+     * 查询角色相关权限信息
      *
      * @return
      */
-    List<SysRole> selectRoles();
+    List<RoleDTO> selectRoles();
+
+    /**
+     * 修改角色信息
+     *
+     * @param roleKey
+     * @return
+     */
+    int updateRoles(String roleKey, RoleDTO roleDTO);
+
+
 }

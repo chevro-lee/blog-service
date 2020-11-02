@@ -35,7 +35,7 @@ public class SysMenuController {
         RestRsp<List<MenuDTO>> restRsp = new RestRsp<>();
         authorization = authorization.replace(JwtTokenUtils.TOKEN_PREFIX,"");
         String userRole = JwtTokenUtils.getUserRole(authorization);
-        List<MenuDTO> menuAuthList = ISysMenuService.getMenuAuth(userRole);
+        List<MenuDTO> menuAuthList = ISysMenuService.getMenus(userRole);
         return restRsp.success(menuAuthList);
     }
 }
