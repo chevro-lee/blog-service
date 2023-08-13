@@ -18,7 +18,7 @@ public class ConnectionUtil {
         // 设置服务器地址
         factory.setHost("localhost");
         // 设置端口号
-        factory.setPort(5672);
+        factory.setPort(56712);
         // 设置账号信息，virtualHost，用户名，密码
         factory.setVirtualHost("testhost");
         factory.setUsername("admin");
